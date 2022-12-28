@@ -1,68 +1,72 @@
-#include "DxLib.h"
+#include "DxLib.h" 
 
-int Key[256]; // ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éƒtƒŒ[ƒ€”‚ğŠi”[‚·‚é
+int Key[256]; // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ ¼ç´ã™ã‚‹
 
-// ƒL[‚Ì“ü—Íó‘Ô‚ğXV‚·‚é
+// ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 int gpUpdateKey() {
-    char tmpKey[256]; // Œ»İ‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğŠi”[‚·‚é
-    GetHitKeyStateAll(tmpKey); // ‘S‚Ä‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğ“¾‚é
+    char tmpKey[256]; // ç¾åœ¨ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ ¼ç´ã™ã‚‹
+    GetHitKeyStateAll(tmpKey); // å…¨ã¦ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’å¾—ã‚‹
     for (int i = 0; i < 256; i++) {
-        if (tmpKey[i] != 0) { // i”Ô‚ÌƒL[ƒR[ƒh‚É‘Î‰‚·‚éƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-            Key[i]++;     // ‰ÁZ
+        if (tmpKey[i] != 0) { // iç•ªã®ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã™ã‚‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+            Key[i]++;     // åŠ ç®—
         }
-        else {              // ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î
-            Key[i] = 0;   // 0‚É‚·‚é
+        else {              // æŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°
+            Key[i] = 0;   // 0ã«ã™ã‚‹
         }
     }
     return 0;
 }
 
-// ƒƒjƒ…[€–Ú‚Ì•\¦‚É•K—v‚È\‘¢‘Ì‚ğ—pˆÓ‚·‚é
+// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã®è¡¨ç¤ºã«å¿…è¦ãªæ§‹é€ ä½“ã‚’ç”¨æ„ã™ã‚‹
 typedef struct {
-    int x, y;       // À•WŠi”[—p•Ï”
-    char name[128]; // €–Ú–¼Ši”[—p•Ï”
+    int x, y;       // åº§æ¨™æ ¼ç´ç”¨å¤‰æ•°
+    char name[128]; // é …ç›®åæ ¼ç´ç”¨å¤‰æ•°
 } MenuElement_t;
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-    ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK); //ƒEƒBƒ“ƒhƒEƒ‚[ƒh•ÏX‚Æ‰Šú‰»‚Æ— ‰æ–Êİ’è
-    
-    SetWindowText("ƒNƒŠƒ{[RPG");
-    // ƒƒjƒ…[€–Ú—v‘f‚ğ5‚Âì‚é
-    MenuElement_t MenuElement[4] = {
-            {  250, 100, "‚Í‚¶‚ß‚©‚ç" }, // ƒ^ƒO‚Ì’†g‚Ì‡”Ô‚ÅŠi”[‚³‚ê‚éBx‚É80‚ªAy‚É100‚ªAname‚É"ƒQ[ƒ€ƒXƒ^[ƒg"‚ª
-            { 250, 150, "‚Â‚Ã‚«‚©‚ç" },
-            { 250, 200, "ƒwƒ‹ƒv" },
-            { 250, 250, "ƒQ[ƒ€I—¹" },
-    };
-    int SelectNum = 0; // Œ»İ‚Ì‘I‘ğ”Ô†
+    ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK); //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰å¤‰æ›´ã¨åˆæœŸåŒ–ã¨è£ç”»é¢è¨­å®š
 
-    // while(— ‰æ–Ê‚ğ•\‰æ–Ê‚É”½‰f, ƒƒbƒZ[ƒWˆ—, ‰æ–ÊƒNƒŠƒA, ƒL[XV)
+    SetWindowText("ã‚¯ãƒªãƒœãƒ¼RPG");
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®è¦ç´ ã‚’5ã¤ä½œã‚‹
+    MenuElement_t MenuElement[4] = {
+            {  250, 100, "ã¯ã˜ã‚ã‹ã‚‰" }, // ã‚¿ã‚°ã®ä¸­èº«ã®é †ç•ªã§æ ¼ç´ã•ã‚Œã‚‹ã€‚xã«80ãŒã€yã«100ãŒã€nameã«"ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ"ãŒ
+            { 250, 150, "ã¤ã¥ãã‹ã‚‰" },
+            { 250, 200, "ãƒ˜ãƒ«ãƒ—" },
+            { 250, 250, "ã‚²ãƒ¼ãƒ çµ‚äº†" },
+    };
+    int SelectNum = 0; // ç¾åœ¨ã®é¸æŠç•ªå·
+
+    // while(è£ç”»é¢ã‚’è¡¨ç”»é¢ã«åæ˜ , ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†, ç”»é¢ã‚¯ãƒªã‚¢, ã‚­ãƒ¼æ›´æ–°)
     while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && gpUpdateKey() == 0) {
 
-        // ŒvZƒtƒF[ƒY 
+        if (Key[KEY_INPUT_DOWN] == 1) { // ä¸‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸç¬é–“ã ã‘å‡¦ç†
+            SelectNum = (SelectNum + 1) % 5; // ç¾åœ¨ã®é¸æŠé …ç›®ã‚’ä¸€ã¤ä¸‹ã«ãšã‚‰ã™(ãƒ«ãƒ¼ãƒ—ã™ã‚‹)
+        }
+        if (Key[KEY_INPUT_UP] == 1) { //ä¸Šã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸç¬é–“ã ã‘å‡¦ç†
+            SelectNum = (SelectNum + 4) % 5;
+        }
 
-        if (Key[KEY_INPUT_DOWN] == 1) { // ‰ºƒL[‚ª‰Ÿ‚³‚ê‚½uŠÔ‚¾‚¯ˆ—
-
-            SelectNum = (SelectNum + 1) % 4; // Œ»İ‚Ì‘I‘ğ€–Ú‚ğˆê‚Â‰º‚É‚¸‚ç‚·(ƒ‹[ƒv‚·‚é)
-
-            for (int i = 0; i < 4; i++) {              // ƒƒjƒ…[€–Ú”‚Å‚ ‚é5ŒÂƒ‹[ƒvˆ—
-                if (i == SelectNum) {          // ¡ˆ—‚µ‚Ä‚¢‚é‚Ì‚ªA‘I‘ğ”Ô†‚Æ“¯‚¶—v‘f‚È‚ç
-                    MenuElement[i].x = 200; // À•W‚ğ80‚É‚·‚é
+        if (Key[KEY_INPUT_DOWN] == 1 || Key[KEY_INPUT_UP] == 1) {
+            for (int i = 0; i < 4; i++) {              // ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã§ã‚ã‚‹5å€‹ãƒ«ãƒ¼ãƒ—å‡¦ç†
+                if (i == SelectNum) {          // ä»Šå‡¦ç†ã—ã¦ã„ã‚‹ã®ãŒã€é¸æŠç•ªå·ã¨åŒã˜è¦ç´ ãªã‚‰
+                    MenuElement[i].x = 200; // åº§æ¨™ã‚’80ã«ã™ã‚‹
                 }
-                else {                       // ¡ˆ—‚µ‚Ä‚¢‚é‚Ì‚ªA‘I‘ğ”Ô†ˆÈŠO‚È‚ç
-                    MenuElement[i].x = 250;// À•W‚ğ100‚É‚·‚é
+                else {                       // ä»Šå‡¦ç†ã—ã¦ã„ã‚‹ã®ãŒã€é¸æŠç•ªå·ä»¥å¤–ãªã‚‰
+                    MenuElement[i].x = 250;// åº§æ¨™ã‚’100ã«ã™ã‚‹
                 }
             }
         }
+        if (Key[KEY_INPUT_RETURN] == 1) {
 
-        // •`‰æƒtƒF[ƒY
-
-        for (int i = 0; i < 4; i++) { // ƒƒjƒ…[€–Ú‚ğ•`‰æ
-            DrawFormatString(MenuElement[i].x, MenuElement[i].y, GetColor(255, 255, 255), MenuElement[i].name);
         }
 
-    }
+        // æç”»ãƒ•ã‚§ãƒ¼ã‚º
 
-    DxLib_End(); // DXƒ‰ƒCƒuƒ‰ƒŠI—¹ˆ—
+        for (int i = 0; i < 4; i++) { // ãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®ã‚’æç”»
+            DrawFormatString(MenuElement[i].x, MenuElement[i].y, GetColor(255, 255, 255), MenuElement[i].name);
+        }
+    }
+    DxLib_End(); // DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªçµ‚äº†å‡¦ç†
     return 0;
+
 }
